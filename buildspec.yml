@@ -1,0 +1,33 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      # Install the AWS Elastic Beanstalk CLI (eb)
+      - echo Installing Elastic Beanstalk CLI...
+      - pip install awsebcli
+
+  pre_build:
+    commands:
+      # Clone the GitHub repository (if it's not already in the build container)
+      - echo Cloning the repository...
+      - git clone https://github.com/BhaskarDeb2000/aws-auto-deploy-app.git
+      - cd aws-auto-deploy-app
+
+  build:
+    commands:
+      # Zip the entire repository
+      - echo Zipping the repository...
+      - zip -r ../aws-auto-deploy-app.zip .
+
+  post_build:
+    commands:
+      # Deploy the code to Elastic Beanstalk
+      - echo Deploying to Elastic Beanstalk...
+      - eb init -p node.js your-application-name --region your-region
+      - eb use your-environment-name
+      - eb deploy
+
+artifacts:
+  files:
+    - your-repository-name.zip
