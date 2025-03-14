@@ -24,10 +24,10 @@ phases:
     commands:
       # Deploy the code to Elastic Beanstalk
       - echo Deploying to Elastic Beanstalk...
-      - eb init -p node.js your-application-name --region your-region
-      - eb use your-environment-name
+      - eb init -p node.js Auto-Deployment --region eu-north-1
+      - eb use Auto-Deployment-env
       - eb deploy
 
 artifacts:
   files:
-    - your-repository-name.zip
+    - aws-auto-deploy-app.zip
